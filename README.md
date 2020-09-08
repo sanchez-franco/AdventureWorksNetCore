@@ -11,29 +11,30 @@ Using EF Core 3.1.x as our Object-Relational Mapping / Persistence Framework.
 
 In order to use Database First approach (since we are using a Sample DB) we run the following command from the AdventureWorks.Data folder
 
-dotnet ef dbcontext -s ..\AdventureWorks.API\AdventureWorks.API.csproj scaffold Name=AdventureWorksDb Microsoft.EntityFrameworkCore.SqlServer -o Entities --context-dir Context -c AdventureWorksContext -f
+*dotnet ef dbcontext -s ..\AdventureWorks.API\AdventureWorks.API.csproj scaffold Name=AdventureWorksDb Microsoft.EntityFrameworkCore.SqlServer -o Entities --context-dir Context -c AdventureWorksContext -f*
 
-dotnet ef dbcontext
--s
-	By doing this we specify the start up project that will be used, this is very helpful since in a real world scenario we will separate our API from our DB project
+*dotnet ef dbcontext*
 
-scaffold Name=AdventureWorksDb
-	This will tell ef to use Database first approach and use the Connection String "AdventureWorksDb" which lives in our start up project
+*-s*
+By doing this we specify the start up project that will be used, this is very helpful since in a real world scenario we will separate our API from our DB project
 
-Microsoft.EntityFrameworkCore.SqlServer
-	This will specified EF which provider will be used
+*scaffold Name=AdventureWorksDb*
+This will tell ef to use Database first approach and use the Connection String "AdventureWorksDb" which lives in our start up project
+
+*Microsoft.EntityFrameworkCore.SqlServer*
+This will specified EF which provider will be used
+
+*-o Entities*
+This will specified EF the Output folder from the current location
+
+*--context-dir Context*
+If we want to create your DBContext in a different folder we set this options and provided the folder name
 	
--o Entities
-	This will specified EF the Output folder from the current location
-
---context-dir Context
-	If we want to create your DBContext in a different folder we set this options and provided the folder name
+*-c AdventureWorksContext*
+This will represent our DBContext name that will be used
 	
--c AdventureWorksContext
-	This will represent our DBContext name that will be used
-	
- -f
-	And by setting this option we will tell EF to generate the classes even if there is already a file in the specified output folder
+*-f*
+And by setting this option we will tell EF to generate the classes even if there is already a file in the specified output folder
 
 ![EF](/Images/EF.JPG)
 ![EF Output](/Images/EF_Output.JPG)
@@ -50,7 +51,7 @@ A change that I made for this .NET Core implementation was to take off Unit of W
 
 Another improvement was the fact that this new repository will be running asynchronously.
 
-[Repository](https://github.com/sanchez-franco/AdventureWorks/blob/c2853d4ef3a9b1e77d951fc4077a9049be0ea868/AdventureWorks.Data.Repository/Repository.cs#L9)
+[Repository](https://github.com/sanchez-franco/AdventureWorksNetCore/blob/bf4604388ef8367e50e686de8da7babb0f9146c4/AdventureWorks.Data/Repository/Repository.cs#L11)
 
 ![Repository Pattern](/Images/Repository_Pattern.JPG)
 
@@ -65,9 +66,11 @@ AutoMapper will solve the fact of manually mapping classes that are very similar
 We do it by a couple of simple steps:
 
 - First thing we do is creating a new class that inherits from AutoMapper.Profile, this class will contain our mappings configurations that our application will use.
+
 ![AutoMapper Profile](/Images/AutoMapper_Profile.JPG)
 
 - After that we will go to our API Configure Services and we add automapper by using the extension method and providing the assembly that contains our mapping profiles.
+
 ![AutoMapper Configuration](/Images/AutoMapper_Configuration.JPG)
 
 ### Dependency Injection Pattern (DI)
@@ -86,10 +89,10 @@ Screenshots to call our Web API using [Postman]
 
 - Authenticating to our API and validating the user with our DB.
 
-*Success*
+**Success**
 ![JWT Token](/Images/Auth_Success.JPG)
 
-*Failure*
+**Failure**
 ![Get Token](/Images/Auth_Failure.JPG)
 
 - Using our token to call crud methods in our Web API.

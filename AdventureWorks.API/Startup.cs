@@ -46,12 +46,11 @@ namespace AdventureWorks.API
                 .AddJsonOptions(x => x.JsonSerializerOptions.IgnoreNullValues = true);
 
             // configure DI for application services
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IPersonService, PersonService>();
 
             // configure DI for application repositories
             services.AddScoped<IPersonRepository, PersonRepository>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-
             services.AddAutoMapper(typeof(MapperProfile));
 
             services.AddApiVersioning(opt =>

@@ -21,7 +21,7 @@ namespace AdventureWorks.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest model)
+        public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest model)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace AdventureWorks.API.Controllers
                 if (response == null)
                     return BadRequest(new { message = "Username or password is incorrect" });
 
-                return Ok(response);
+                return response;
             }
             catch (Exception e)
             {

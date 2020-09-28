@@ -2,7 +2,6 @@
 using AdventureWorks.Common.Model;
 using AdventureWorks.Data.Repositories;
 using AutoMapper;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdventureWorks.Business.Services
@@ -24,7 +23,7 @@ namespace AdventureWorks.Business.Services
 
             return Mapper.Map<PersonDetail>(businessEntity);
         }
-        public async Task<IList<PersonDetail>> GetPersonDetails()
+        public async Task<PersonDetail[]> GetPersonDetails()
         {
             var businessEntities = await _personRepository.GetPersonDetails();
             // return null if user not found

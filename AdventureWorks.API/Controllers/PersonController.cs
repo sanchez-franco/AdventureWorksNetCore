@@ -1,4 +1,5 @@
 ﻿using AdventureWorks.Common.Interface;
+using AdventureWorks.Common.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,7 @@ namespace AdventureWorks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<PersonDetail[]>> Get()
         {
             try
             {
@@ -27,7 +28,7 @@ namespace AdventureWorks.API.Controllers
                 if (response == null)
                     return NotFound();
 
-                return Ok(response);
+                return response;
             }
             catch (Exception e)
             {
@@ -36,7 +37,7 @@ namespace AdventureWorks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetVersion2()
+        public async Task<ActionResult<dynamic>> GetVersion2()
         {
             try
             {
@@ -47,11 +48,11 @@ namespace AdventureWorks.API.Controllers
 
                 var wrapper = new
                 {
-                    response.Count,
+                    response.Length,
                     Persons = response
                 };
 
-                return Ok(wrapper);
+                return wrapper;
             }
             catch (Exception e)
             {
@@ -61,7 +62,7 @@ namespace AdventureWorks.API.Controllers
 
         [HttpGet]
         [Route("{personId:int}")]
-        public async Task<IActionResult> Get(int personId)
+        public async Task<ActionResult<PersonDetail>> Get(int personId)
         {
             try
             {
@@ -70,7 +71,7 @@ namespace AdventureWorks.API.Controllers
                 if (response == null)
                     return NotFound();
 
-                return Ok(response);
+                return response;
             }
             catch (Exception e)
             {
